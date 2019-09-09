@@ -1,27 +1,21 @@
-package class_two
+package class_one
 
 import org.scalatest.FunSuite
-import scala.util.{Try,Success,Failure}
 
-class ClassTwoTest extends FunSuite {
-  test("Lists") {
-    val list = List(1, 2, 3)
-    val newList = list :+ 4
-    assert(newList == List(1, 2, 3, 4))
-
-    val otherList = list ++ List(5)
-    assert(otherList == List(1, 2, 3, 5))
-
-    val x = list.map(y => y * 2)
-    assert(x == List(2, 4, 6))
-
-    def fetchUsername(id: Long) : Try[String] = {
-      Success("username")
+class ClassOneTest extends FunSuite {
+  test("Deployer.handleRequest") {
+    val foo = new ClassOne
+    assert(foo.sum(1: Int, 2: Int) == 3)
+    assert(MyNiceSingleton.x == 2)
+    val order = Order(1, 2, 2000, "creditcard", "created")
+    assert(order.status == "created")
+    val paidOrder = order.copy(status = "paid", voucherCode = Some("WOW"))
+    assert(paidOrder.status == "paid")
+    paidOrder.printStatus
+    paidOrder.voucherCode match {
+      case None =>
+      case Some(value) => assert(value == "WOW")
     }
-    fetchUsername(id = 1).map(println)
-    fetchUsername(id = 1).map(x => assert(x == "username"))
-
-    assert(list.headOption == Option(1))
-    assert(List().headOption == None)
+    assert(foo.checkNumber(1) == "1 is odd!")
   }
 }
