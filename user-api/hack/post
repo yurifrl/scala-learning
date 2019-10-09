@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+curl 'http://127.0.0.1:8081/api/v1/users' \
+     -v \
+     -H "Content-Type: application/json" \
+     -d '{
+        "name": "yuri",
+        "id": "efa72c49-13ef-4463-84a8-e12b7014cff6",
+        "age": 80,
+        "occupation": "something",
+        "createdAt": "2019-10-09"
+      }'
